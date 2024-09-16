@@ -45,4 +45,5 @@ resource "aws_codebuild_project" "account_customization_invoker_pipeline" {
 resource "aws_cloudwatch_log_group" "account-customization-invoker" {
   name              = "/aws/codebuild/account-customization-invoker"
   retention_in_days = 7
+  # TODO: add variable for this
 }
