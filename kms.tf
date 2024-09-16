@@ -3,3 +3,4 @@ resource "aws_kms_key" "invoke" {
   description         = "AFT customization invokation KMS key"
   enable_key_rotation = "true"
 }
+# TODO: add key policy
