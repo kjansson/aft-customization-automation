@@ -14,9 +14,9 @@ phases:
   build:
     commands:
       - echo "Build"
-      - git diff --name-only HEAD^ | cut -d'/' -f1 | sort -u > customization_groups
-      - aws dynamodb scan --table-name aft-request-metadata --projection-expression "id, account_customizations_name" --consistent-read --output json | jq -r '.Items[] | "\(.id.S) \(.account_customizations_name.S)"' > accounts
-      - grep -f customization_groups accounts | awk '{print $1}' > target_accounts
+      - git diff --name-only HEAD^ | cut -d'/' -f1 | sort -u > customization_groups # Find out what customization groups have changed
+      - aws dynamodb scan --table-name aft-request-metadata --projection-expression "id, account_customizations_name" --consistent-read --output json | jq -r '.Items[] | "\(.id.S) \(.account_customizations_name.S)"' > accounts # Get all the accounts and their customization groups
+      - grep -f customization_groups accounts | awk '{print $1}' > target_accounts # Find out what accounts have changed customization groups
       - | 
         cat <<EOT >> payload_template.json
         {
@@ -28,8 +28,8 @@ phases:
           ]
         }       
         EOT
-      - jq --argjson values "$(awk 'BEGIN { ORS=""; print "[" } { printf "\"%s\",", $0 } END { print "]" }' target_accounts | sed 's/,]/]/')" '.include[0].target_value = $values' payload_template.json > payload.json
-      - aws stepfunctions start-execution --state-machine-arn arn:aws:states:$CT_MGMT_REGION:$AFT_MGMT_ACCOUNT:stateMachine:aft-invoke-customizations --input file://payload.json
+      - jq --argjson values "$(awk 'BEGIN { ORS=""; print "[" } { printf "\"%s\",", $0 } END { print "]" }' target_accounts | sed 's/,]/]/')" '.include[0].target_value = $values' payload_template.json > payload.json # Create the payload for the Step Function
+      - aws stepfunctions start-execution --state-machine-arn arn:aws:states:$CT_MGMT_REGION:$AFT_MGMT_ACCOUNT:stateMachine:aft-invoke-customizations --input file://payload.json # Start the Step Function
 
   post_build:
     commands:
