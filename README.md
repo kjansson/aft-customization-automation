@@ -50,6 +50,7 @@ PoC module for automating customization pipeline invokation in Account Factory f
 |------|-------------|------|---------|:--------:|
 | <a name="input_aft_kms_key_alias"></a> [aft\_kms\_key\_alias](#input\_aft\_kms\_key\_alias) | The alias of the KMS key used by AFT. | `string` | `"alias/aft"` | no |
 | <a name="input_codepipeline_s3_bucket_name"></a> [codepipeline\_s3\_bucket\_name](#input\_codepipeline\_s3\_bucket\_name) | The name of the S3 bucket to store the CodePipeline artifacts. If not given one will be created. | `string` | `""` | no |
+| <a name="input_codestar_connection_arn"></a> [codestar\_connection\_arn](#input\_codestar\_connection\_arn) | The ARN of the CodeStar connection | `string` | `""` | no |
 | <a name="input_customization_name"></a> [customization\_name](#input\_customization\_name) | The name of the customization | `string` | n/a | yes |
 | <a name="input_customizations_repo_branch"></a> [customizations\_repo\_branch](#input\_customizations\_repo\_branch) | The branch of the repository containing the customizations | `string` | n/a | yes |
 | <a name="input_customizations_repo_name"></a> [customizations\_repo\_name](#input\_customizations\_repo\_name) | The name of the repository containing the customizations | `string` | n/a | yes |

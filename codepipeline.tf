@@ -24,7 +24,7 @@ resource "aws_codepipeline" "codestar_customization_invoker" {
       output_artifacts = [var.customization_name]
 
       configuration = {
-        ConnectionArn        = aws_codestarconnections_connection.github.arn
+        ConnectionArn        = var.codestar_connection_arn == "" ? aws_codestarconnections_connection.github[0].arn : var.codestar_connection_arn
         FullRepositoryId     = var.customizations_repo_name
         BranchName           = var.customizations_repo_branch
         DetectChanges        = true
