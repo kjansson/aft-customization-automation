@@ -13,6 +13,6 @@ resource "aws_iam_role_policy" "customization_invoker_codepipeline_policy" {
     data_aws_region_current_name                             = data.aws_region.current.name
     data_aws_caller_identity_current_account_id              = data.aws_caller_identity.current.account_id
     data_aws_kms_alias_aft_key_target_key_arn                = var.key_arn == "" ? aws_kms_key.invoke[0].arn : var.key_arn
-    data_aws_kms_key_aft_arn = data.aws_kms_key.aft.arn
+    data_aws_kms_key_aft_arn                                 = data.aws_kms_key.aft.arn
   })
 }

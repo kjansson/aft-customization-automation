@@ -5,7 +5,7 @@ data "aws_region" "current" {}
 data "aws_caller_identity" "current" {}
 
 data "aws_s3_bucket" "codepipeline_bucket" {
-  count = var.codepipeline_s3_bucket_name != "" ? 1 : 0
+  count  = var.codepipeline_s3_bucket_name != "" ? 1 : 0
   bucket = var.codepipeline_s3_bucket_name
 }
 
