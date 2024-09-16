@@ -1,5 +1,5 @@
 resource "aws_iam_role" "customization_invoker_codepipeline_role" {
-  name = "ct-aft-customization-invoker-role"
+  name = "${var.customization_name}-invoker-role"
   assume_role_policy = jsonencode(
     {
       "Version" : "2012-10-17",
