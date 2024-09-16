@@ -3,6 +3,7 @@ resource "aws_iam_role" "customization_invoker_codepipeline_role" {
   assume_role_policy = templatefile("${path.module}/iam/trust-policies/invoke.tpl", { none = "none" })
 }
 
+
 resource "aws_iam_role_policy" "customization_invoker_codepipeline_policy" {
   name = "ct-aft-customization-invoker-policy"
   role = aws_iam_role.customization_invoker_codepipeline_role.id
