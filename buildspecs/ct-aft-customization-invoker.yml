@@ -34,8 +34,8 @@ phases:
   post_build:
     commands:
       - echo "Post-Build"
-      # - |
-      #   if [[ $CODEBUILD_BUILD_SUCCEEDING == 0 ]]; then
-      #     exit 1
-      #   fi
+      - |
+        if [[ $CODEBUILD_BUILD_SUCCEEDING == 0 ]]; then
+          exit 1
+        fi
       # TODO, test this
