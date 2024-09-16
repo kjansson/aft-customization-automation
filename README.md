@@ -5,6 +5,13 @@ PoC module for automating customization pipeline invokation in Account Factory f
 
 ![Alt text](img/invokation.png?raw=true "Overview")
 
+# Prerequisites
+- AFT framework deployed
+- AFT repos in Github
+
+# Deployment
+Deploys into AFT management account. The module creates workflow for one customization repository, so to enable automatic invokation for both global customization and account customization you need to deploy the module for each repository.
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
