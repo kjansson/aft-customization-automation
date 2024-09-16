@@ -41,3 +41,10 @@ variable "codestar_connection_arn" {
   type        = string
   default     = ""
 }
+
+variable "log_retention_days" {
+  description = "The number of days to retain logs"
+  type        = number
+  default     = 7
+
+}

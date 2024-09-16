@@ -63,6 +63,7 @@ Deploys into AFT management account. The module creates workflow for one customi
 | <a name="input_customizations_repo_name"></a> [customizations\_repo\_name](#input\_customizations\_repo\_name) | The name of the repository containing the customizations | `string` | n/a | yes |
 | <a name="input_global_codebuild_timeout"></a> [global\_codebuild\_timeout](#input\_global\_codebuild\_timeout) | The timeout in minutes for the CodeBuild project | `number` | `300` | no |
 | <a name="input_key_arn"></a> [key\_arn](#input\_key\_arn) | The ARN of the KMS key to use for encrypting the CodePipeline artifacts. If not given one will be created. | `string` | `""` | no |
+| <a name="input_log_retention_days"></a> [log\_retention\_days](#input\_log\_retention\_days) | The number of days to retain logs | `number` | `7` | no |
 
 ## Outputs
 
