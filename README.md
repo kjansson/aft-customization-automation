@@ -61,5 +61,9 @@ PoC module for automating customization pipeline invokation in Account Factory f
 
 | Name | Description |
 |------|-------------|
+| <a name="output_codepipeline_arn"></a> [codepipeline\_arn](#output\_codepipeline\_arn) | ARN of the CodePipeline |
+| <a name="output_codepipeline_bucket_arn"></a> [codepipeline\_bucket\_arn](#output\_codepipeline\_bucket\_arn) | ARN of the S3 bucket to store the CodePipeline artifacts |
+| <a name="output_codepipeline_bucket_name"></a> [codepipeline\_bucket\_name](#output\_codepipeline\_bucket\_name) | Name of the S3 bucket to store the CodePipeline artifacts |
 | <a name="output_codestar_connection_arn"></a> [codestar\_connection\_arn](#output\_codestar\_connection\_arn) | ARN of the CodeStar connection |
+| <a name="output_invokation_kms_key_arn"></a> [invokation\_kms\_key\_arn](#output\_invokation\_kms\_key\_arn) | ARN of the KMS key used to encrypt the CodePipeline artifacts |
 <!-- END_TF_DOCS -->
