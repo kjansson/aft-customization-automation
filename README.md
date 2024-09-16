@@ -1,13 +1,13 @@
 # aft-customization-automation
 
 # Overview
-PoC module for automating customization pipeline invokation in Account Factory for Terraform (AFT).
+PoC Terraform module for automating customization pipeline invokation in Account Factory for Terraform (AFT), bypassing the manual step of triggering the account customization step function manually on changes.
 
 ![Alt text](img/invokation.png?raw=true "Overview")
 
 # Prerequisites
 - AFT framework deployed
-- AFT repos in Github
+- AFT repos hosted on Github
 
 # Deployment
 Deploys into AFT management account. The module creates workflow for one customization repository, so to enable automatic invokation for both global customization and account customization you need to deploy the module for each repository.
