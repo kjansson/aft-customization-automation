@@ -1,0 +1,36 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - DEFAULT_PATH=$(pwd)
+      - TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')
+      - CT_MGMT_REGION=$(aws ssm get-parameter --name "/aft/config/ct-management-region" --query "Parameter.Value" --output text)
+      - AFT_MGMT_ACCOUNT=$(aws sts get-caller-identity --query Account --output text)
+      - AFT_EXEC_ROLE_ARN=arn:$AWS_PARTITION:iam::$AFT_MGMT_ACCOUNT:role/AWSAFTExecution
+      - AFT_ADMIN_ROLE_NAME=$(aws ssm get-parameter --name /aft/resources/iam/aft-administrator-role-name | jq --raw-output ".Parameter.Value")
+      - AFT_ADMIN_ROLE_ARN=arn:$AWS_PARTITION:iam::$AFT_MGMT_ACCOUNT:role/$AFT_ADMIN_ROLE_NAME
+      - ROLE_SESSION_NAME=$(aws ssm get-parameter --name /aft/resources/iam/aft-session-name | jq --raw-output ".Parameter.Value")
+  build:
+    commands:
+      - echo "Build"
+      - git diff --name-only HEAD^ | cut -d'/' -f1 | sort -u > customization_groups
+      - aws dynamodb scan --table-name aft-request-metadata --projection-expression "id, account_customizations_name" --consistent-read --output json | jq -r '.Items[] | "\(.id.S) \(.account_customizations_name.S)"' > accounts
+      - grep -f customization_groups accounts | awk '{print $1}' > target_accounts
+      - | 
+        cat <<EOT >> payload_template.json
+        {
+          "include": [
+            {
+              "type": "accounts",
+              "target_value": [ ]
+            }
+          ]
+        }       
+        EOT
+      - jq --argjson values "$(awk 'BEGIN { ORS=""; print "[" } { printf "\"%s\",", $0 } END { print "]" }' target_accounts | sed 's/,]/]/')" '.include[0].target_value = $values' payload_template.json > payload.json
+      - aws stepfunctions start-execution --state-machine-arn arn:aws:states:$CT_MGMT_REGION:$AFT_MGMT_ACCOUNT:stateMachine:aft-invoke-customizations --input file://payload.json
+
+  post_build:
+    commands:
+      - echo "Post-Build"
