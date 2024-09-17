@@ -7,7 +7,7 @@ resource "aws_codepipeline" "codestar_customization_invoker" {
     type     = "S3"
 
     encryption_key {
-      id   = var.key_arn == "" ? aws_kms_key.invoke[0].arn : var.key_arn
+      id   = local.kms_key_arn
       type = "KMS"
     }
   }
