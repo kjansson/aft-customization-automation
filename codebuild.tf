@@ -7,7 +7,7 @@ resource "aws_codebuild_project" "account_customization_invoker_pipeline" {
   description    = "Deploys account customizations"
   build_timeout  = tostring(var.global_codebuild_timeout)
   service_role   = aws_iam_role.customization_invoker_codepipeline_role.arn
-  encryption_key = var.key_arn == "" ? aws_kms_key.invoke[0].arn : var.key_arn
+  encryption_key = local.kms_key_arn
 
   artifacts {
     type = "CODEPIPELINE"

@@ -3,7 +3,7 @@ resource "aws_codepipeline" "codestar_customization_invoker" {
   role_arn = aws_iam_role.customization_invoker_codepipeline_role.arn
 
   artifact_store {
-    location = var.codepipeline_s3_bucket_name == "" ? aws_s3_bucket.codepipeline_bucket[0].bucket : var.codepipeline_s3_bucket_name
+    location = local.codepipeline_bucket_name
     type     = "S3"
 
     encryption_key {
@@ -24,7 +24,7 @@ resource "aws_codepipeline" "codestar_customization_invoker" {
       output_artifacts = [var.customization_name]
 
       configuration = {
-        ConnectionArn        = var.codestar_connection_arn == "" ? aws_codestarconnections_connection.github[0].arn : var.codestar_connection_arn
+        ConnectionArn        = local.codestar_connection_arn
         FullRepositoryId     = var.customizations_repo_name
         BranchName           = var.customizations_repo_branch
         DetectChanges        = true
